@@ -14,6 +14,9 @@ A tree consists of nodes where each node contains:
 
 A tree has a root node, which serves as the entry point, and each node in the tree is connected by edges.
 
+## Documentaion Definiton
+a tree a hierarchical data structure consisting of nodes connected by edges. Each node in a tree has a value (referred to as data) and zero or more child nodes, forming a branching structure resembling a real-world tree. The topmost node in a tree is called the root, and each node may have a parent node except for the root, which has no parent. Nodes with no children are called leaf nodes, and nodes with at least one child are called internal nodes.
+
 ## Usage
 
 Trees are used in various applications, including:
