@@ -100,7 +100,16 @@ public class BinarySearchTree<T> where T : IComparable<T>
         }
         else
         {
-            // Insertion logic for the right subtree
+            if (node.Children.Count < 2)
+            {
+                TreeNode<T> newNode = new TreeNode<T>(data);
+                newNode.Parent = node;
+                node.Children.Add(newNode);
+            }
+            else
+            {
+                InsertRecursively(node.Children[1], data);
+            }
         }
     }
 }
