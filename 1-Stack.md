@@ -78,6 +78,13 @@ Function Call Management: Used to store function call information in recursion.
 Undo Mechanisms: Utilized to implement undo functionality in text editors.
 Browser History: Stacks can be employed to maintain browsing history.
 
+
+## Visual Examples
+
+![Stack diagram example](https://www.geeksforgeeks.org/c-sharp-stack-with-examples/)
+
+
+
 ## Conclusion
 
 Stacks are indispensable data structures in computer science, providing a simple yet powerful way to manage data. Understanding their concepts, operations, and implementations is essential for every programmer. By mastering stacks, you gain valuable insights into efficient data management and problem-solving strategies.

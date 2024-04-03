@@ -83,5 +83,12 @@ public class LinkedList<T>
     }
 }
 ```
+
+## Visual Example:
+
+![Diagram and Documentation of Linked list](https://www.geeksforgeeks.org/linked-list-implementation-in-c-sharp/)
+
+
+
 ## Conclusion
 Linked lists provide a flexible and efficient way to store and manipulate data, especially in scenarios where dynamic memory allocation and frequent insertions and deletions are required. Understanding the structure and operations of linked lists is essential for every programmer, as they are widely used in various applications and form the basis for more complex data structures.

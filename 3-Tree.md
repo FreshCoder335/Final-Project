@@ -114,5 +114,14 @@ public class BinarySearchTree<T> where T : IComparable<T>
     }
 }
 ```
+
+## Visual Example:
+
+![Tree Diagram and Documentation](https://www.c-sharpcorner.com/article/tree-data-structure/)
+
+
+
+
+
 ## Conclusion
 Trees are versatile data structures with numerous applications in computer science and beyond. Understanding the structure and operations of trees is essential for designing efficient algorithms and solving various computational problems.
