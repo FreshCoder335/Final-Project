@@ -59,7 +59,7 @@ class Program
         return false;
     }
 
-    // Solutino
+    // Solution
     static void RemoveCandyBar(LinkedList<string> list, string candyBar)
     {
     LinkedListNode<string> currentNode = list.First;

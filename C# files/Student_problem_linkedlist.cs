@@ -39,25 +39,35 @@ class Program
         DisplayList(candyBarList);
     }
 
-    static void DisplayList(LinkedList<string> list)
+    // Function to display the contents of a linked list
+static void DisplayList(LinkedList<string> list)
+{
+    // Iterate through each candy bar in the linked list
+    foreach (string candyBar in list)
     {
-        foreach (string candyBar in list)
+        
+        Console.WriteLine(candyBar);
+    }
+}
+
+// Function to search for a specific candy bar in the linked list
+static bool Search(LinkedList<string> list, string candyBar)
+{
+    // Iterate through each candy bar in the linked list
+    foreach (string cb in list)
+    {
+        // If the current candy bar matches the target candy bar, return true
+        if (cb == candyBar)
         {
-            Console.WriteLine(candyBar);
+            return true;
         }
     }
+    // If the target candy bar is not found in the linked list, return false
+    return false;
+}
 
-    static bool Search(LinkedList<string> list, string candyBar)
+    static void RemoveCandyBar(LinkedList<string> list, string candyBar)
     {
-        foreach (string cb in list)
-        {
-            if (cb == candyBar)
-            {
-                return true;
-            }
-        }
-        return false;
+        // Your code here for removing a specific candy bar from the list
     }
-
-    // Your code here for removing a specific candy bar from the list
 }

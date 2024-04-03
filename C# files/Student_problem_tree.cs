@@ -35,16 +35,16 @@ class Program
     class BSTNode
 {
     // Definition of a Binary Search Tree (BST) node
-    public string CandyBar; // Name of the candy bar
-    public int Calories;    // Calories in the candy bar
-    public BSTNode Left, Right; // References to left and right child nodes
+    public string CandyBar; 
+    public int Calories;    
+    public BSTNode Left, Right; 
 
     // Constructor to initialize a BST node with candy bar name and calories
     public BSTNode(string candyBar, int calories)
     {
         CandyBar = candyBar;
         Calories = calories;
-        Left = Right = null; // Initializing left and right child nodes as null
+        Left = Right = null; 
     }
 }
 

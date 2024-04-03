@@ -43,25 +43,33 @@ class Program
         DisplayStack(candyBarStack);
     }
 
-    static void DisplayStack(Stack<string> stack)
+    // Function to display the contents of a stack
+static void DisplayStack(Stack<string> stack)
+{
+    // Iterate through each candy bar in the stack
+    foreach (string candyBar in stack)
     {
-        foreach (string candyBar in stack)
-        {
-            Console.WriteLine(candyBar);
-        }
+        // Print the name of the candy bar
+        Console.WriteLine(candyBar);
     }
+}
 
-    static bool CheckIfExists(Stack<string> stack, string candyBar)
+// Function to check if a specific candy bar exists in the stack
+static bool CheckIfExists(Stack<string> stack, string candyBar)
+{
+    // Iterate through each candy bar in the stack
+    foreach (string cb in stack)
     {
-        foreach (string cb in stack)
+        // If the current candy bar matches the target candy bar, return true
+        if (cb == candyBar)
         {
-            if (cb == candyBar)
-            {
-                return true;
-            }
+            return true;
         }
-        return false;
     }
+    // If the target candy bar is not found in the stack, return false
+    return false;
+}
+
 
     static void RemoveAllInstances(stack<string> stack, string candyBar)
     {
