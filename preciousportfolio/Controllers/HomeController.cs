@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using preciousportfolio.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace preciousportfolio.Controllers
 {
@@ -12,7 +13,7 @@ namespace preciousportfolio.Controllers
         {
             _logger = logger;
         }
-
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();

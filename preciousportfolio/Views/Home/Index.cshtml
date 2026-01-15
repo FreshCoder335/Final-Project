@@ -1,8 +1,149 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    // Page title shown in browser tab and layout
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!--
+    =========================================================
+    Application Entry Point / Landing Page
+    ---------------------------------------------------------
+    Purpose:
+    - Public-facing introduction to the application
+    - Guides users to Register or Login
+    - Provides a safe continuation path for authenticated users
+    - Contains NO sensitive or database-driven data
+    =========================================================
+-->
+
+<div class="container py-5">
+
+    <!--
+        =====================================================
+        Main two-column layout
+        Left: Application description and actions
+        Right: Informational snapshot card (static for now)
+        =====================================================
+    -->
+    <div class="row align-items-center g-5">
+
+        <!-- =======================
+             LEFT COLUMN: INTRO
+             ======================= -->
+        <div class="col-12 col-lg-7">
+
+            <!-- Application Name / Branding -->
+            <h1 class="display-5 fw-bold">preciousportfolio</h1>
+
+            <!-- High-level description -->
+            <p class="lead mt-3">
+                Securely track and manage your physical precious metals holdings,
+                including gold, silver, and other bullion assets.
+            </p>
+
+            <!-- Feature overview list -->
+            <ul class="mt-4">
+                <li>Track coins, bars, and rounds</li>
+                <li>View portfolio summaries and totals</li>
+                <li>Protect sensitive notes with security-first design</li>
+            </ul>
+
+            <!--
+                =================================================
+                Primary Call-To-Action Buttons
+                -------------------------------------------------
+                IMPORTANT:
+                - We intentionally link ONLY to routes that exist
+                - This guarantees zero broken links during early development
+                =================================================
+            -->
+            <div class="d-flex gap-2 mt-4">
+
+                @* If user is authenticated, show a safe continuation link *@
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <!--
+                        Using Home/Privacy as a placeholder "continue" page.
+                        This can later be replaced with a Portfolio Dashboard.
+                    -->
+                    <a class="btn btn-primary btn-lg"
+                       asp-controller="Home"
+                       asp-action="Privacy">
+                        Continue
+                    </a>
+                }
+                else
+                {
+                    <!-- Register link (Identity scaffolded page) -->
+                    <a class="btn btn-primary btn-lg"
+                       asp-area="Identity"
+                       asp-page="/Account/Register">
+                        Create account
+                    </a>
+
+                    <!-- Login link (Identity scaffolded page) -->
+                    <a class="btn btn-outline-secondary btn-lg"
+                       asp-area="Identity"
+                       asp-page="/Account/Login">
+                        Log in
+                    </a>
+                }
+            </div>
+
+            <!-- Security reassurance note -->
+            <p class="text-muted mt-4 mb-0 small">
+                Passwords are securely hashed. Optional two-factor authentication is supported.
+            </p>
+        </div>
+
+        <!-- =======================
+             RIGHT COLUMN: SNAPSHOT
+             ======================= -->
+        <div class="col-12 col-lg-5">
+
+            <!--
+                Informational card shown on landing page.
+                This is intentionally static and does not
+                query the database at this stage.
+            -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <h5 class="card-title">What you’ll manage</h5>
+
+                    <p class="card-text text-muted">
+                        Once signed in, you’ll be able to record individual
+                        precious metal holdings with detailed metadata.
+                    </p>
+
+                    <!--
+                        Placeholder portfolio snapshot.
+                        Values will be replaced with real data
+                        once Holdings and Portfolio features exist.
+                    -->
+                    <div class="border rounded p-3 bg-light">
+                        <div class="d-flex justify-content-between">
+                            <span>Total Holdings</span>
+                            <span class="fw-semibold">—</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Gold</span>
+                            <span class="fw-semibold">— oz</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Silver</span>
+                            <span class="fw-semibold">— oz</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Last Updated</span>
+                            <span class="fw-semibold">—</span>
+                        </div>
+                    </div>
+
+                    <p class="text-muted mt-3 small mb-0">
+                        (Portfolio values populate after holdings are added.)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
