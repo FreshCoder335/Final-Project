@@ -1,22 +1,214 @@
-html {
-  font-size: 14px;
+﻿/* ===========================
+   PreciousPortfolio - Global Styles
+   =========================== */
+
+:root {
+    --bg: #0b1220;
+    --surface: #0f1a2e;
+    --card: #0f2038;
+    --footer-bg: #111827; /* solid grey footer */
+
+    --text: #e9eef7;
+    --muted: #cbd5e1;
+    --border: rgba(255,255,255,.10);
+    --accent: #d6b35a;
+    --accent-2: #9fb3c8;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+    --radius: 16px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+/* ===========================
+   Base Document
+   =========================== */
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+html, body {
+    min-height: 100%;
+    margin: 0;
 }
 
 body {
-  margin-bottom: 60px;
+    background: radial-gradient(1200px 600px at 15% 0%, rgba(214,179,90,.18), transparent 60%), radial-gradient(900px 500px at 85% 10%, rgba(159,179,200,.14), transparent 55%), var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
 }
+
+/* ===========================
+   Main Content
+   =========================== */
+
+main {
+    display: block;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    min-height: auto;
+    height: auto;
+}
+
+/* ===========================
+   Links & Text
+   =========================== */
+
+a {
+    color: var(--accent);
+}
+
+    a:hover {
+        color: #f0d98c;
+    }
+
+.text-muted {
+    color: var(--muted) !important;
+}
+
+p, li, span, label {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+/* ===========================
+   Navbar
+   =========================== */
+
+.navbar {
+    border-bottom: 1px solid var(--border);
+}
+
+/* ===========================
+   Footer — CRITICAL FIX
+   =========================== */
+
+/* Override inherited/scoped footer rules that cause squishing */
+footer.footer,
+.footer,
+.footer[b-dtrmkn9z03] {
+    position: static !important; /* return to normal flow */
+    bottom: auto !important;
+    width: 100%;
+    white-space: normal !important; /* allow wrapping */
+    line-height: normal !important; /* remove forced height */
+
+    background: var(--footer-bg) !important;
+    color: var(--muted);
+    padding: 1.25rem 0;
+    margin-top: 2rem;
+    border: none;
+}
+
+    footer.footer .container {
+        text-align: center;
+    }
+
+    footer.footer a {
+        color: var(--accent);
+        text-decoration: none;
+    }
+
+        footer.footer a:hover {
+            text-decoration: underline;
+        }
+
+/* ===========================
+   Cards
+   =========================== */
+
+.card {
+    background: rgba(15, 32, 56, .85);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+/* ===========================
+   Buttons
+   =========================== */
+
+.btn {
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #1a1a1a;
+}
+
+    .btn-primary:hover {
+        background: #e6c46b;
+        border-color: #e6c46b;
+        color: #141414;
+    }
+
+.btn-outline-secondary {
+    border-color: rgba(255,255,255,.22);
+    color: var(--text);
+}
+
+    .btn-outline-secondary:hover {
+        background: rgba(255,255,255,.08);
+        border-color: rgba(255,255,255,.28);
+    }
+
+/* ===========================
+   Inputs
+   =========================== */
+
+.form-control,
+.form-select {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.14);
+    color: var(--text);
+    border-radius: 12px;
+}
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: rgba(214,179,90,.7);
+        box-shadow: 0 0 0 4px rgba(214,179,90,.18);
+        background: rgba(255,255,255,.08);
+        color: var(--text);
+    }
+
+    .form-control::placeholder {
+        color: rgba(233,238,247,.55);
+    }
+
+/* ===========================
+   Containers & Helpers
+   =========================== */
+
+.container {
+    max-width: 1100px;
+}
+
+.row {
+    --bs-gutter-x: 1.5rem;
+}
+
+.d-flex.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Portfolio snapshot (dashboard card) */
+.portfolio-snapshot {
+    background: rgba(15, 32, 56, 0.85); /* matches your card theme */
+    border-color: var(--border);
+    color: var(--text);
+}
+
+    .portfolio-snapshot span {
+        color: var(--muted);
+    }
+
+    .portfolio-snapshot .fw-semibold {
+        color: var(--text);
+    }

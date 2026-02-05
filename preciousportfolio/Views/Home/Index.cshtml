@@ -1,5 +1,5 @@
 ﻿@{
-    // Page title shown in browser tab and layout
+    // Page title displayed in browser tab and layout
     ViewData["Title"] = "Home";
 }
 
@@ -8,79 +8,77 @@
     Application Entry Point / Landing Page
     ---------------------------------------------------------
     Purpose:
-    - Public-facing introduction to the application
-    - Guides users to Register or Login
-    - Provides a safe continuation path for authenticated users
-    - Contains NO sensitive or database-driven data
+    - Public-facing introduction to PreciousPortfolio
+    - Entry point for both authenticated and unauthenticated users
+    - No database access or sensitive information
     =========================================================
 -->
 
 <div class="container py-5">
 
-    <!--
-        =====================================================
-        Main two-column layout
-        Left: Application description and actions
-        Right: Informational snapshot card (static for now)
-        =====================================================
-    -->
+    <!-- =====================================================
+         Main Layout Row
+         Left: Branding, description, and actions
+         Right: Informational snapshot card (static placeholder)
+         ===================================================== -->
     <div class="row align-items-center g-5">
 
         <!-- =======================
-             LEFT COLUMN: INTRO
+             LEFT COLUMN: HERO AREA
              ======================= -->
         <div class="col-12 col-lg-7">
 
-            <!-- Application Name / Branding -->
-            <h1 class="display-5 fw-bold">preciousportfolio</h1>
+            <!-- Application Branding -->
+            <h1 class="display-5 fw-bold">PreciousPortfolio</h1>
 
-            <!-- High-level description -->
+            <!-- Primary value statement -->
             <p class="lead mt-3">
-                Securely track and manage your physical precious metals holdings,
-                including gold, silver, and other bullion assets.
+                Secure portfolio tracking for physical precious metals.
             </p>
 
-            <!-- Feature overview list -->
-            <ul class="mt-4">
-                <li>Track coins, bars, and rounds</li>
-                <li>View portfolio summaries and totals</li>
-                <li>Protect sensitive notes with security-first design</li>
+            <!-- Supporting description -->
+            <p class="text-muted">
+                Record ownership, monitor totals, and protect sensitive information
+                with a security-first design.
+            </p>
+
+            <hr class="my-4">
+
+            <!-- Trust-oriented feature highlights -->
+            <ul class="list-unstyled">
+                <li class="mb-2">🔐 Security-focused architecture</li>
+                <li class="mb-2">📊 Clear portfolio summaries</li>
+                <li class="mb-2">🪙 Built for physical asset ownership</li>
             </ul>
 
-            <!--
-                =================================================
-                Primary Call-To-Action Buttons
-                -------------------------------------------------
-                IMPORTANT:
-                - We intentionally link ONLY to routes that exist
-                - This guarantees zero broken links during early development
-                =================================================
-            -->
+            <!-- =================================================
+                 Call-To-Action Buttons
+                 -------------------------------------------------
+                 NOTE:
+                 - Links point only to existing routes
+                 - Prevents broken navigation during early development
+                 ================================================= -->
             <div class="d-flex gap-2 mt-4">
 
-                @* If user is authenticated, show a safe continuation link *@
                 @if (User.Identity?.IsAuthenticated == true)
                 {
-                    <!--
-                        Using Home/Privacy as a placeholder "continue" page.
-                        This can later be replaced with a Portfolio Dashboard.
-                    -->
+                    <!-- Safe continuation link for authenticated users -->
                     <a class="btn btn-primary btn-lg"
-                       asp-controller="Home"
-                       asp-action="Privacy">
-                        Continue
+                       asp-controller="Dashboard"
+                       asp-action="Index">
+                        Access Your Portfolio
                     </a>
                 }
                 else
                 {
-                    <!-- Register link (Identity scaffolded page) -->
+                    <!-- Identity registration page -->
                     <a class="btn btn-primary btn-lg"
                        asp-area="Identity"
                        asp-page="/Account/Register">
                         Create account
                     </a>
 
-                    <!-- Login link (Identity scaffolded page) -->
+                    <!-- Identity login page -->
                     <a class="btn btn-outline-secondary btn-lg"
                        asp-area="Identity"
                        asp-page="/Account/Login">
@@ -88,11 +86,6 @@
                     </a>
                 }
             </div>
-
-            <!-- Security reassurance note -->
-            <p class="text-muted mt-4 mb-0 small">
-                Passwords are securely hashed. Optional two-factor authentication is supported.
-            </p>
         </div>
 
         <!-- =======================
@@ -101,9 +94,8 @@
         <div class="col-12 col-lg-5">
 
             <!--
-                Informational card shown on landing page.
-                This is intentionally static and does not
-                query the database at this stage.
+                Informational card describing future portfolio features.
+                Values are intentionally static placeholders at this stage.
             -->
             <div class="card shadow-sm">
                 <div class="card-body">
@@ -111,16 +103,12 @@
                     <h5 class="card-title">What you’ll manage</h5>
 
                     <p class="card-text text-muted">
-                        Once signed in, you’ll be able to record individual
-                        precious metal holdings with detailed metadata.
+                        After signing in, you’ll be able to track individual precious metal
+                        holdings with detailed metadata and summaries.
                     </p>
 
-                    <!--
-                        Placeholder portfolio snapshot.
-                        Values will be replaced with real data
-                        once Holdings and Portfolio features exist.
-                    -->
-                    <div class="border rounded p-3 bg-light">
+                    <!-- Placeholder portfolio snapshot -->
+                    <div class="border rounded p-3 portfolio-snapshot">
                         <div class="d-flex justify-content-between">
                             <span>Total Holdings</span>
                             <span class="fw-semibold">—</span>
@@ -145,5 +133,15 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- =====================================================
+         Academic Disclaimer
+         ===================================================== -->
+    <div class="text-center mt-5">
+        <p class="text-muted small mb-0">
+            PreciousPortfolio is an academic project developed for educational purposes only.
+            It does not provide financial or investment advice.
+        </p>
     </div>
 </div>
