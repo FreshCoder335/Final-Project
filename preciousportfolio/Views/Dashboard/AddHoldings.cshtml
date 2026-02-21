@@ -1,0 +1,248 @@
+﻿@{
+    Layout = "_LayoutDashboard";
+    ViewData["Title"] = "Add Holdings";
+}
+
+<div class="container-fluid">
+
+    <!-- Page header + primary actions -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h1 class="h3 mb-0">Add Holdings</h1>
+            <div class="text-muted">Create a new precious metals holding (UI proof of concept)</div>
+        </div>
+
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-secondary"
+               asp-controller="Dashboard"
+               asp-action="Index">
+                Back
+            </a>
+
+            <button type="button" class="btn btn-primary" disabled>
+                Save (Coming Soon)
+            </button>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <!-- Main form -->
+        <div class="col-12 col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="h5 mb-3">Holding Details</h2>
+
+                    <form>
+                        <div class="row g-3">
+
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="metalType">Metal Type</label>
+                                <select class="form-select" id="metalType" name="metalType">
+                                    <option value="" selected hidden>Choose...</option>
+                                    <option>Gold</option>
+                                    <option>Silver</option>
+                                    <option>Platinum</option>
+                                    <option>Palladium</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="formType">Form</label>
+                                <select class="form-select" id="formType" name="formType">
+                                    <option value="" selected hidden>Choose...</option>
+                                    <option>Coin</option>
+                                    <option>Bar</option>
+                                    <option>Round</option>
+                                    <option>Junk / Constitutional</option>
+                                    <option>Jewelry</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label" for="description">Description</label>
+                                <input class="form-control"
+                                       id="description"
+                                       name="description"
+                                       placeholder="e.g., 1 oz American Gold Eagle (2024), 10 oz Silver bar, etc." />
+                                <div class="form-text">This is what you’ll see in your holdings list.</div>
+                            </div>
+
+                            <div class="col-12 col-md-4">
+                                <label class="form-label" for="weightOz">Weight (troy oz)</label>
+                                <input class="form-control"
+                                       id="weightOz"
+                                       name="weightOz"
+                                       placeholder="e.g., 1.00 or 10.00" />
+                            </div>
+
+                            <div class="col-12 col-md-4">
+                                <label class="form-label" for="purity">Purity</label>
+                                <input class="form-control"
+                                       id="purity"
+                                       name="purity"
+                                       placeholder="e.g., .999, .9999, 22k" />
+                            </div>
+
+                            <div class="col-12 col-md-4">
+                                <label class="form-label" for="quantity">Quantity</label>
+                                <input class="form-control"
+                                       id="quantity"
+                                       name="quantity"
+                                       placeholder="e.g., 1, 5, 20" />
+                            </div>
+
+                            <hr class="my-2" />
+
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="acquiredDate">Acquired Date</label>
+                                <input type="date" class="form-control" id="acquiredDate" name="acquiredDate" />
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="acquiredPrice">Acquired Price (total)</label>
+                                <input class="form-control"
+                                       id="acquiredPrice"
+                                       name="acquiredPrice"
+                                       placeholder="e.g., 2050.00" />
+                                <div class="form-text">Total paid (including premium/fees), not spot price.</div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="dealer">Dealer / Source (optional)</label>
+                                <input class="form-control"
+                                       id="dealer"
+                                       name="dealer"
+                                       placeholder="e.g., APMEX, JM Bullion, Local shop" />
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="location">Storage Location (optional)</label>
+                                <input class="form-control"
+                                       id="location"
+                                       name="location"
+                                       placeholder="e.g., Home safe, Bank box, Vault service" />
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label" for="notes">Notes (optional)</label>
+                                <textarea class="form-control"
+                                          id="notes"
+                                          name="notes"
+                                          rows="3"
+                                          placeholder="Serial numbers, receipts, grading details, etc."></textarea>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-footer d-flex justify-content-end gap-2">
+                    <a class="btn btn-outline-secondary"
+                       asp-controller="Dashboard"
+                       asp-action="Index">
+                        Cancel
+                    </a>
+
+                    <button type="button" class="btn btn-primary" disabled>
+                        Save Holding (Coming Soon)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: live preview / guidance panel -->
+        <div class="col-12 col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="h5 mb-2">Preview</h2>
+                    <div class="text-muted mb-3">
+                        This panel is UI-only for now. Later we can auto-update it as you type.
+                    </div>
+
+                    <dl class="row mb-0">
+                        <dt class="col-5">Metal</dt>
+                        <dd class="col-7 text-muted" id="previewMetal">—</dd>
+
+                        <dt class="col-5">Form</dt>
+                        <dd class="col-7 text-muted" id="previewForm">—</dd>
+
+                        <dt class="col-5">Weight</dt>
+                        <dd class="col-7 text-muted" id="previewWeight">—</dd>
+
+                        <dt class="col-5">Purity</dt>
+                        <dd class="col-7 text-muted" id="previewPurity">—</dd>
+
+                        <dt class="col-5">Quantity</dt>
+                        <dd class="col-7 text-muted" id="previewQuantity">—</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mt-3">
+                <div class="card-body">
+                    <h2 class="h5 mb-2">Tips</h2>
+                    <ul class="mb-0 text-muted">
+                        <li>Use troy ounces for consistency.</li>
+                        <li>“Acquired price” should include premiums/fees.</li>
+                        <li>Keep descriptions short but specific.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            /* ===============================
+               LIVE PREVIEW UPDATE
+            =============================== */
+            function updatePreview() {
+                const metal = document.getElementById("metalType")?.value || "";
+                const form = document.getElementById("formType")?.value || "";
+                const weight = document.getElementById("weightOz")?.value || "";
+                const purity = document.getElementById("purity")?.value || "";
+                const quantity = document.getElementById("quantity")?.value || "";
+
+                document.getElementById("previewMetal").textContent = metal || "—";
+                document.getElementById("previewForm").textContent = form || "—";
+                document.getElementById("previewWeight").textContent = weight ? weight + " oz" : "—";
+                document.getElementById("previewPurity").textContent = purity || "—";
+                document.getElementById("previewQuantity").textContent = quantity || "—";
+            }
+
+            ["metalType", "formType", "weightOz", "purity", "quantity"]
+                .forEach(id => {
+                    const el = document.getElementById(id);
+                    if (!el) return;
+
+                    el.addEventListener("input", updatePreview);
+                    el.addEventListener("change", updatePreview);
+                });
+
+
+            /* ===============================
+               PLACEHOLDER COLOR FIX FOR SELECTS
+            =============================== */
+            document.querySelectorAll(".form-select").forEach(select => {
+
+                function updatePlaceholderState() {
+                    if (!select.value) {
+                        select.classList.add("placeholder");
+                    } else {
+                        select.classList.remove("placeholder");
+                    }
+                }
+
+                updatePlaceholderState();
+                select.addEventListener("change", updatePlaceholderState);
+            });
+
+        });
+    </script>
+}

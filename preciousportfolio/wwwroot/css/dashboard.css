@@ -1,0 +1,143 @@
+﻿.dash-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #dee2e6;
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    z-index: 10;
+}
+
+.dash-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dash-brand {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.dash-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font: inherit;
+    color: #212529;
+    font-weight: 500;
+}
+
+    .dash-link:hover {
+        color: #000;
+        background: rgba(0,0,0,0.06);
+    }
+
+.dash-dropdown {
+    position: relative;
+}
+
+.dash-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 180px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 10px;
+    padding: 6px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.dash-dropdown.open .dash-menu {
+    display: block;
+}
+
+.dash-menuitem {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #212529;
+}
+
+    .dash-menuitem:hover {
+        background: rgba(0,0,0,0.06);
+        color: #000;
+    }
+
+.dash-content {
+    padding: 16px;
+}
+
+/* If you're using dark blue cards */
+.card.bg-primary,
+.card.bg-dark,
+.dashboard-dark-card {
+    color: #f8f9fa; /* light text */
+}
+
+    /* Fix headings inside dark cards */
+    .card.bg-primary h1,
+    .card.bg-primary h2,
+    .card.bg-primary h3,
+    .card.bg-dark h1,
+    .card.bg-dark h2,
+    .card.bg-dark h3 {
+        color: #ffffff;
+    }
+
+/* Table styling for dark backgrounds */
+.dashboard-table thead th {
+    color: #e9ecef;
+}
+
+.dashboard-table tbody td {
+    color: #f8f9fa;
+}
+
+
+.card.dashboard-dark-card {
+    background: #1e293b; /* modern navy */
+    border: none;
+    color: #f8fafc;
+}
+
+
+.dashboard-dark-card {
+    background: #1e293b; /* modern navy */
+    border: none;
+    color: #f8fafc;
+}
+
+    .dashboard-dark-card h1,
+    .dashboard-dark-card h2,
+    .dashboard-dark-card h3,
+    .dashboard-dark-card h4,
+    .dashboard-dark-card h5,
+    .dashboard-dark-card h6 {
+        color: #ffffff;
+    }
+
+/* Fix select dropdown text visibility */
+.dashboard-body .form-select {
+    color: #212529; /* Bootstrap dark text */
+    font-weight: 400;
+}
+
+    /* Fix option text inside dropdown */
+    /* Placeholder style when no value selected */
+    .dashboard-body .form-select:has(option[value=""]:checked),
+    .dashboard-body .form-select[value=""] {
+        color: #6c757d;
+    }
+
+    .dashoboard-body .form-select.placeholder {
+    color: #6c757d;
+    }

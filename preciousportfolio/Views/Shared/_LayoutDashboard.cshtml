@@ -1,0 +1,164 @@
+﻿@*
+    Dashboard Layout
+    Located at: Views/Shared/_LayoutDashboard.cshtml
+*@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Dashboard</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/preciousportfolio.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- Dashboard Specific Styles -->
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+</head>
+<body class="dashboard-body">
+
+    <!-- Top Navigation Bar -->
+    <header class="dash-topbar">
+        <div class="dash-left">
+            <a class="dash-brand" asp-controller="Dashboard" asp-action="Index">
+                PreciousPortfolio
+            </a>
+        </div>
+
+        <nav class="dash-nav">
+
+            <!-- Normal Link -->
+            <a class="dash-link"
+               asp-controller="Dashboard"
+               asp-action="Index">
+                Overview
+            </a>
+
+            <!-- Reports Dropdown -->
+            <div class="dash-dropdown">
+                <button type="button"
+                        class="dash-link dash-dropbtn"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    Reports ▾
+                </button>
+
+                <div class="dash-menu" role="menu">
+                    <a class="dash-menuitem"
+                       asp-controller="Dashboard"
+                       asp-action="Reports">
+                        All Reports
+                    </a>
+
+                    <a class="dash-menuitem"
+                       asp-controller="Dashboard"
+                       asp-action="SalesReport">
+                        Sales Report
+                    </a>
+
+                    <a class="dash-menuitem"
+                       asp-controller="Dashboard"
+                       asp-action="AuditReport">
+                        Audit Report
+                    </a>
+                </div>
+            </div>
+
+            <!-- Settings Dropdown -->
+            <div class="dash-dropdown">
+                <button type="button"
+                        class="dash-link dash-dropbtn"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    Settings ▾
+                </button>
+
+                <div class="dash-menu" role="menu">
+                    <a class="dash-menuitem"
+                       asp-controller="Account"
+                       asp-action="Manage">
+                        Account
+                    </a>
+
+                    <a class="dash-menuitem"
+                       asp-controller="Dashboard"
+                       asp-action="Preferences">
+                        Preferences
+                    </a>
+                </div>
+            </div>
+
+        </nav>
+
+        <div class="dash-right">
+            <a class="dash-link"
+               asp-controller="Account"
+               asp-action="Logout">
+                Logout
+            </a>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="dash-content">
+        @RenderBody()
+    </main>
+
+    <!-- Vendor + Site Scripts (match _Layout.cshtml so existing components work) -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Dropdown Toggle Script -->
+    <script>
+        (function () {
+            const dropdowns = document.querySelectorAll(".dash-dropdown");
+
+            dropdowns.forEach(dd => {
+                const btn = dd.querySelector(".dash-dropbtn");
+
+                btn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+
+                    // Close all other dropdowns
+                    dropdowns.forEach(other => {
+                        if (other !== dd) {
+                            other.classList.remove("open");
+                            const otherBtn = other.querySelector(".dash-dropbtn");
+                            if (otherBtn) {
+                                otherBtn.setAttribute("aria-expanded", "false");
+                            }
+                        }
+                    });
+
+                    // Toggle current dropdown
+                    dd.classList.toggle("open");
+                    btn.setAttribute(
+                        "aria-expanded",
+                        dd.classList.contains("open") ? "true" : "false"
+                    );
+                });
+            });
+
+            // Close dropdown if clicking outside
+            document.addEventListener("click", () => {
+                dropdowns.forEach(dd => {
+                    dd.classList.remove("open");
+                    const btn = dd.querySelector(".dash-dropbtn");
+                    if (btn) {
+                        btn.setAttribute("aria-expanded", "false");
+                    }
+                });
+            });
+        })();
+    </script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

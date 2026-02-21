@@ -11,5 +11,10 @@ namespace preciousportfolio.Controllers
             var vm = DashboardViewModel.Sample();
             return View(vm);
         }
+
+        public IActionResult AddHoldings()
+        {
+            return View();
+        }
     }
 }
