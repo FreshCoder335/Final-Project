@@ -1,0 +1,155 @@
+﻿@*
+    =====================================================================
+    Inventory Report View
+    ---------------------------------------------------------------------
+    Purpose:
+        Displays a structured inventory-style report of all holdings.
+        Designed for verification, insurance documentation, and reconciliation.
+    
+    Notes:
+        - Currently uses placeholder UI.
+        - Future implementation will bind to database via ViewModel.
+        - Designed to support export (PDF/CSV) in future sprint.
+    =====================================================================
+*@
+
+@{
+    Layout = "_LayoutDashboard";
+    ViewData["Title"] = "Inventory Report";
+}
+
+<div class="container-fluid">
+
+    <!-- ============================================================= -->
+    <!-- Page Header                                                   -->
+    <!-- ============================================================= -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h1 class="h3 mb-0">Inventory Report</h1>
+            <div class="text-muted">
+                Complete verification report of all precious metal holdings.
+            </div>
+        </div>
+
+        <!-- Placeholder Export Button -->
+        <button class="btn btn-outline-primary" disabled>
+            Export (Coming Soon)
+        </button>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- Summary Section                                               -->
+    <!-- ============================================================= -->
+    <div class="row g-3 mb-3">
+
+        <!-- Total Holdings -->
+        <div class="col-12 col-md-4">
+            <div class="card shadow-sm dashboard-dark-card">
+                <div class="card-body">
+                    <div class="text-muted">Total Holdings</div>
+                    <div class="display-6">—</div>
+                    <div class="small text-muted">
+                        Future: Calculated from database.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Weight -->
+        <div class="col-12 col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="text-muted">Total Weight (oz)</div>
+                    <div class="display-6">—</div>
+                    <div class="small text-muted">
+                        Future: Aggregated sum of all holdings.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estimated Total Value -->
+        <div class="col-12 col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="text-muted">Estimated Value</div>
+                    <div class="display-6">—</div>
+                    <div class="small text-muted">
+                        Future: Calculated using spot price lookup.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- Inventory Table                                               -->
+    <!-- ============================================================= -->
+    <div class="card shadow-sm dashboard-dark-card">
+        <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h5 mb-0">Detailed Holdings Inventory</h2>
+                <span class="text-muted small">
+                    Placeholder data for structural demonstration
+                </span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-sm align-middle mb-0 dashboard-table">
+                    <thead>
+                        <tr>
+                            <th>Metal</th>
+                            <th>Description</th>
+                            <th class="text-end">Weight (oz)</th>
+                            <th class="text-end">Purity</th>
+                            <th class="text-end">Quantity</th>
+                            <th class="text-end">Storage Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- ================================================================================= -->
+                        <!-- Placeholder rows so that in the future I can render using foreach over ViewModel -->
+                        <!-- ================================================================================= -->
+
+                        <tr>
+                            <td class="fw-semibold">Gold</td>
+                            <td>1 oz American Eagle (2024)</td>
+                            <td class="text-end">1.00</td>
+                            <td class="text-end">.9999</td>
+                            <td class="text-end">1</td>
+                            <td class="text-end">Home Safe</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-semibold">Silver</td>
+                            <td>10 oz Silver Bar</td>
+                            <td class="text-end">10.00</td>
+                            <td class="text-end">.999</td>
+                            <td class="text-end">1</td>
+                            <td class="text-end">Bank Box</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-semibold">Platinum</td>
+                            <td>1 oz Maple Leaf</td>
+                            <td class="text-end">1.00</td>
+                            <td class="text-end">.9995</td>
+                            <td class="text-end">1</td>
+                            <td class="text-end">Vault Service</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ============================================================= -->
+            <!-- Footer Note                                                    -->
+            <!-- ============================================================= -->
+            <div class="mt-3 small text-muted">
+                This report is designed to support insurance documentation,
+                physical verification audits, and portfolio reconciliation.
+            </div>
+
+        </div>
+    </div>
+
+</div>

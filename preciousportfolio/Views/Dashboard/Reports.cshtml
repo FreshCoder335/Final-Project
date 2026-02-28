@@ -1,0 +1,153 @@
+﻿@*
+    =====================================================================
+    All Reports View (Reports Hub)
+    ---------------------------------------------------------------------
+    Purpose:
+        Provides a single location to access all reporting modules.
+        Acts as a navigation hub with brief report descriptions and actions.
+
+    Notes:
+        - Currently shows placeholder actions (Export/Generate).
+        - Future: these cards can show real summary metrics pulled from DB.
+        - Future: add additional reports (Allocation, Performance, Insurance).
+    =====================================================================
+*@
+
+@{
+    Layout = "_LayoutDashboard";
+    ViewData["Title"] = "All Reports";
+}
+
+<div class="container-fluid">
+
+    <!-- ============================================================= -->
+    <!-- Page Header                                                   -->
+    <!-- ============================================================= -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h1 class="h3 mb-0">All Reports</h1>
+            <div class="text-muted">
+                Central hub for portfolio reporting and documentation.
+            </div>
+        </div>
+
+        <!-- Placeholder global export -->
+        <button class="btn btn-outline-primary" disabled>
+            Export Center (Coming Soon)
+        </button>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- Report Cards                                                  -->
+    <!-- ============================================================= -->
+    <div class="row g-3">
+
+        <!-- Inventory Report Card -->
+        <div class="col-12 col-lg-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h2 class="h5 mb-1">Inventory Report</h2>
+                            <div class="text-muted">
+                                Full holdings inventory for verification and insurance documentation.
+                            </div>
+                        </div>
+                        <span class="badge text-bg-secondary">Report</span>
+                    </div>
+
+                    <hr class="my-3" />
+
+                    <!-- Placeholder "what you'll get" section -->
+                    <ul class="mb-4 text-muted">
+                        <li>Metal type, form, purity, weight, and quantity</li>
+                        <li>Storage location and verification-ready format</li>
+                        <li>Designed for future export (PDF/CSV)</li>
+                    </ul>
+
+                    <div class="mt-auto d-flex gap-2">
+                        <a class="btn btn-primary"
+                           asp-controller="Dashboard"
+                           asp-action="InventoryReport">
+                            Open
+                        </a>
+                        <button class="btn btn-outline-primary" disabled>
+                            Export (Soon)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sales Report Card -->
+        <div class="col-12 col-lg-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h2 class="h5 mb-1">Sales Report</h2>
+                            <div class="text-muted">
+                                Tracks sold holdings, proceeds, and realized gains/losses.
+                            </div>
+                        </div>
+                        <span class="badge text-bg-secondary">Report</span>
+                    </div>
+
+                    <hr class="my-3" />
+
+                    <ul class="mb-4 text-muted">
+                        <li>Transaction list with proceeds and cost basis</li>
+                        <li>Filter-ready structure (metal type, date range)</li>
+                        <li>Future: charting and export support</li>
+                    </ul>
+
+                    <div class="mt-auto d-flex gap-2">
+                        <a class="btn btn-primary"
+                           asp-controller="Dashboard"
+                           asp-action="SalesReport">
+                            Open
+                        </a>
+                        <button class="btn btn-outline-primary" disabled>
+                            Export (Soon)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Future Report: Spot Price Lookup (Stretch) -->
+        <div class="col-12">
+            <div class="card shadow-sm dashboard-dark-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h2 class="h5 mb-1">Spot Price Lookup (Stretch)</h2>
+                            <div class="text-muted">
+                                Display current spot prices for selected metals and support valuation reporting.
+                            </div>
+                        </div>
+                        <span class="badge text-bg-warning">Stretch</span>
+                    </div>
+
+                    <hr class="my-3" />
+
+                    <div class="text-muted">
+                        Future enhancement: integrate an external pricing API so reports can display
+                        estimated value, portfolio allocation, and price-history summaries.
+                    </div>
+
+                    <div class="mt-3 d-flex gap-2">
+                        <button class="btn btn-outline-light" disabled>
+                            Configure API (Soon)
+                        </button>
+                        <button class="btn btn-outline-light" disabled>
+                            View Pricing Report (Soon)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

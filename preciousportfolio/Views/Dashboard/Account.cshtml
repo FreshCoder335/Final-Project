@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "_LayoutDashboard";
+    ViewData["Title"] = "Account";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h1 class="h3 mb-0">Account</h1>
+            <div class="text-muted">Update basic profile information (placeholder)</div>
+        </div>
+    </div>
+
+    @if (TempData["AccountMessage"] is string msg)
+    {
+        <div class="alert alert-success">@msg</div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h2 class="h5 mb-3">Profile</h2>
+
+            <form method="post" asp-controller="Dashboard" asp-action="Account">
+                @Html.AntiForgeryToken()
+
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="displayName">Display Name</label>
+                        <input class="form-control" id="displayName" name="displayName"
+                               placeholder="e.g., Joseph Redfall" />
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="email">Email</label>
+                        <input class="form-control" id="email" name="email"
+                               placeholder="e.g., you@example.com" />
+                        <div class="form-text">Future: bind to authenticated account.</div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="storageDefault">Default Storage Location</label>
+                        <input class="form-control" id="storageDefault" name="storageDefault"
+                               placeholder="e.g., Home safe, Bank box, Vault service" />
+                        <div class="form-text">Future: auto-fill on Add Holdings.</div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="units">Preferred Units</label>
+                        <select class="form-select" id="units" name="units" disabled>
+                            <option selected>Troy ounces (oz)</option>
+                            <option>Grams (g)</option>
+                        </select>
+                        <div class="form-text">Coming soon.</div>
+                    </div>
+
+                    <div class="col-12 d-flex justify-content-end gap-2">
+                        <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

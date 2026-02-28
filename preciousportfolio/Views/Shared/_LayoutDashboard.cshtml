@@ -20,7 +20,7 @@
     <!-- Dashboard Specific Styles -->
     <link rel="stylesheet" href="~/css/dashboard.css" />
 </head>
-<body class="dashboard-body">
+<body class="dashboard-body" id="dashboardBody">
 
     <!-- Top Navigation Bar -->
     <header class="dash-topbar">
@@ -63,8 +63,8 @@
 
                     <a class="dash-menuitem"
                        asp-controller="Dashboard"
-                       asp-action="AuditReport">
-                        Audit Report
+                       asp-action="InventoryReport">
+                        Inventory Report
                     </a>
                 </div>
             </div>
@@ -80,15 +80,15 @@
 
                 <div class="dash-menu" role="menu">
                     <a class="dash-menuitem"
-                       asp-controller="Account"
-                       asp-action="Manage">
+                       asp-controller="Dashboard"
+                       asp-action="Account">
                         Account
                     </a>
 
                     <a class="dash-menuitem"
                        asp-controller="Dashboard"
-                       asp-action="Preferences">
-                        Preferences
+                       asp-action="Settings">
+                        Settings
                     </a>
                 </div>
             </div>
@@ -113,6 +113,16 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        (function () {
+          const saved = localStorage.getItem("pp_theme"); // "dark" or "light"
+          if (saved === "light") {
+            document.getElementById("dashboardBody")?.classList.add("theme-light");
+          }
+        })();
+    </script>
+
 
     <!-- Dropdown Toggle Script -->
     <script>

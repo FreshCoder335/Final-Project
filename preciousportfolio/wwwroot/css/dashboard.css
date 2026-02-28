@@ -1,4 +1,8 @@
-﻿.dash-topbar {
+﻿/* =========================================================
+   DASHBOARD NAVIGATION + STRUCTURE
+   ========================================================= */
+
+.dash-topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -53,6 +57,7 @@
     border-radius: 10px;
     padding: 6px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    z-index: 9999;
 }
 
 .dash-dropdown.open .dash-menu {
@@ -76,68 +81,142 @@
     padding: 16px;
 }
 
-/* If you're using dark blue cards */
-.card.bg-primary,
-.card.bg-dark,
-.dashboard-dark-card {
-    color: #f8f9fa; /* light text */
+/* =========================================================
+   THEME SYSTEM (VARIABLE DRIVEN)
+   ========================================================= */
+
+/* Dark mode defaults */
+.dashboard-body {
+    --pp-page-bg: #0b1220;
+    --pp-card-bg: #1e293b;
+    --pp-card-border: rgba(255,255,255,0.12);
+    --pp-text: #f8fafc;
+    --pp-muted: rgba(248,250,252,0.75);
+    --pp-input-bg: #0f172a;
+    --pp-input-border: rgba(255,255,255,0.18);
+    --pp-table-border: rgba(255,255,255,0.12);
 }
 
-    /* Fix headings inside dark cards */
-    .card.bg-primary h1,
-    .card.bg-primary h2,
-    .card.bg-primary h3,
-    .card.bg-dark h1,
-    .card.bg-dark h2,
-    .card.bg-dark h3 {
-        color: #ffffff;
+    /* Light mode overrides */
+    .dashboard-body.theme-light {
+        --pp-page-bg: #ffffff;
+        --pp-card-bg: #ffffff;
+        --pp-card-border: #dee2e6;
+        --pp-text: #212529;
+        --pp-muted: #6c757d;
+        --pp-input-bg: #ffffff;
+        --pp-input-border: #ced4da;
+        --pp-table-border: #dee2e6;
     }
 
-/* Table styling for dark backgrounds */
-.dashboard-table thead th {
-    color: #e9ecef;
-}
-
-.dashboard-table tbody td {
-    color: #f8f9fa;
-}
-
-
-.card.dashboard-dark-card {
-    background: #1e293b; /* modern navy */
-    border: none;
-    color: #f8fafc;
-}
-
-
-.dashboard-dark-card {
-    background: #1e293b; /* modern navy */
-    border: none;
-    color: #f8fafc;
-}
-
-    .dashboard-dark-card h1,
-    .dashboard-dark-card h2,
-    .dashboard-dark-card h3,
-    .dashboard-dark-card h4,
-    .dashboard-dark-card h5,
-    .dashboard-dark-card h6 {
-        color: #ffffff;
+    /* Apply theme */
+    .dashboard-body .dash-content {
+        background: var(--pp-page-bg);
+        color: var(--pp-text);
+        min-height: 100vh;
     }
 
-/* Fix select dropdown text visibility */
-.dashboard-body .form-select {
-    color: #212529; /* Bootstrap dark text */
-    font-weight: 400;
-}
-
-    /* Fix option text inside dropdown */
-    /* Placeholder style when no value selected */
-    .dashboard-body .form-select:has(option[value=""]:checked),
-    .dashboard-body .form-select[value=""] {
-        color: #6c757d;
+    .dashboard-body .card {
+        background-color: var(--pp-card-bg);
+        color: var(--pp-text);
+        border: 1px solid var(--pp-card-border);
     }
 
-    .dashoboard-body .form-select.placeholder {
-    color: #6c757d;
+        .dashboard-body .card h1,
+        .dashboard-body .card h2,
+        .dashboard-body .card h3,
+        .dashboard-body .card h4,
+        .dashboard-body .card h5,
+        .dashboard-body .card h6 {
+            color: var(--pp-text);
+        }
+
+    .dashboard-body .text-muted {
+        color: var(--pp-muted) !important;
+    }
+
+    .dashboard-body .form-control,
+    .dashboard-body .form-select,
+    .dashboard-body textarea {
+        background-color: var(--pp-input-bg);
+        color: var(--pp-text);
+        border-color: var(--pp-input-border);
+    }
+
+    .dashboard-body .table {
+        color: var(--pp-text);
+        border-color: var(--pp-table-border);
+    }
+
+    .dashboard-body .dashboard-table thead th,
+    .dashboard-body .dashboard-table tbody td {
+        color: var(--pp-text);
+    }
+
+    /* Optional: preserve dashboard-dark-card class but theme it */
+    .dashboard-body .dashboard-dark-card {
+        background-color: var(--pp-card-bg);
+        color: var(--pp-text);
+        border: 1px solid var(--pp-card-border);
+    }
+
+    /* Buttons fix for light mode */
+    .dashboard-body.theme-light .btn-outline-light {
+        color: #212529;
+        border-color: #ced4da;
+    }
+
+    /* =========================================================
+   OVERRIDES TO BEAT GLOBAL site.css (DASHBOARD ONLY)
+   ========================================================= */
+
+    /* Cards: site.css sets .card background globally */
+    .dashboard-body .card {
+        background-color: var(--pp-card-bg) !important;
+        color: var(--pp-text) !important;
+        border-color: var(--pp-card-border) !important;
+    }
+
+    /* Card headers/footers often keep old backgrounds */
+    .dashboard-body .card-header,
+    .dashboard-body .card-footer {
+        background-color: var(--pp-card-bg) !important;
+        color: var(--pp-text) !important;
+        border-color: var(--pp-card-border) !important;
+    }
+
+    /* Inputs/selects: site.css forces dark translucent backgrounds + text */
+    .dashboard-body .form-control,
+    .dashboard-body .form-select,
+    .dashboard-body textarea {
+        background-color: var(--pp-input-bg) !important;
+        color: var(--pp-text) !important;
+        border-color: var(--pp-input-border) !important;
+    }
+
+        /* Placeholder text: site.css makes it too faded */
+        .dashboard-body .form-control::placeholder,
+        .dashboard-body .form-select::placeholder,
+        .dashboard-body textarea::placeholder {
+            color: var(--pp-muted) !important;
+            opacity: 1 !important;
+        }
+
+    /* Muted text: site.css uses !important so we must override */
+    .dashboard-body .text-muted {
+        color: var(--pp-muted) !important;
+    }
+
+    /* Footer: site.css forces dark footer using !important */
+    .dashboard-body.theme-light footer.footer,
+    .dashboard-body.theme-light .footer {
+        background: #ffffff !important;
+        color: #212529 !important;
+        border-top: 1px solid #dee2e6 !important;
+    }
+
+    .dashboard-body:not(.theme-light) footer.footer,
+    .dashboard-body:not(.theme-light) .footer {
+        background: #111827 !important;
+        color: rgba(248,250,252,0.75) !important;
     }
