@@ -1,0 +1,87 @@
+﻿@model IEnumerable<preciousportfolio.Models.Holding>
+
+@{
+    Layout = "_LayoutDashboard";
+    ViewData["Title"] = "My Holdings";
+}
+
+<div class="container-fluid">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mb-3">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h1 class="h3 mb-0">My Holdings</h1>
+            <div class="text-muted">View, update, and delete your saved holdings.</div>
+        </div>
+
+        <a class="btn btn-primary"
+           asp-controller="Dashboard"
+           asp-action="AddHoldings">
+            Add Holding
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <div class="text-muted">No holdings found yet.</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Metal</th>
+                                <th>Form</th>
+                                <th>Description</th>
+                                <th>Weight (oz)</th>
+                                <th>Quantity</th>
+                                <th>Storage</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var holding in Model)
+                            {
+                                <tr>
+                                    <td>@holding.MetalType</td>
+                                    <td>@holding.FormType</td>
+                                    <td>@holding.Description</td>
+                                    <td>@holding.WeightOz</td>
+                                    <td>@holding.Quantity</td>
+                                    <td>@holding.StorageLocation</td>
+                                    <td class="text-end">
+                                        <a class="btn btn-sm btn-outline-primary me-2"
+                                           asp-action="EditHolding"
+                                           asp-route-id="@holding.Id">
+                                            Edit
+                                        </a>
+
+                                        <form asp-action="DeleteHolding"
+                                              asp-route-id="@holding.Id"
+                                              method="post"
+                                              class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-outline-danger"
+                                                    onclick="return confirm('Are you sure you want to delete this holding? This action cannot be undone.');">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
