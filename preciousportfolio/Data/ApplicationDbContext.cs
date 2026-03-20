@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using preciousportfolio.Models;
 
 namespace preciousportfolio.Data
 {
@@ -9,5 +10,7 @@ namespace preciousportfolio.Data
             : base(options)
         {
         }
+
+        public DbSet<Holding> Holdings { get; set; }    
     }
 }

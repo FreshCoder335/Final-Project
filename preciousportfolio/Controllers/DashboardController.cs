@@ -1,20 +1,44 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using preciousportfolio.Data;
 using preciousportfolio.Models;
 
 namespace preciousportfolio.Controllers
 {
     public class DashboardController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public DashboardController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
-            // This is meant to be placeholder data until I can add some real data.
             var vm = DashboardViewModel.Sample();
             return View(vm);
         }
 
+        [HttpGet]
         public IActionResult AddHoldings()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddHoldings(Holding holding)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(holding);
+            }
+
+            _context.Holdings.Add(holding);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Holding saved successfully.";
+            return RedirectToAction(nameof(AddHoldings));
         }
 
         public IActionResult InventoryReport()
@@ -41,7 +65,6 @@ namespace preciousportfolio.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Account(string displayName, string email, string storageDefault)
         {
-            // Placeholder: later persist to DB / Identity profile
             TempData["AccountMessage"] = "Account changes saved (placeholder).";
             return RedirectToAction("Account");
         }
@@ -50,6 +73,5 @@ namespace preciousportfolio.Controllers
         {
             return View();
         }
-
     }
 }
