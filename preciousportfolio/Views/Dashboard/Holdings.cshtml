@@ -16,7 +16,7 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
             <h1 class="h3 mb-0">My Holdings</h1>
-            <div class="text-muted">View, update, and delete your saved holdings.</div>
+            <div class="text-muted">View, update, sell, and delete your saved holdings.</div>
         </div>
 
         <a class="btn btn-primary"
@@ -62,6 +62,12 @@
                                            asp-action="EditHolding"
                                            asp-route-id="@holding.Id">
                                             Edit
+                                        </a>
+
+                                        <a class="btn btn-sm btn-outline-warning me-2"
+                                           asp-action="SellHolding"
+                                           asp-route-id="@holding.Id">
+                                            Sell
                                         </a>
 
                                         <form asp-action="DeleteHolding"

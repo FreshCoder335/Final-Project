@@ -21,17 +21,14 @@
         </a>
     </div>
 
-    <!-- Top summary cards (placeholder-friendly) -->
+    <!-- Top summary cards -->
     <div class="row g-3 mb-3">
         <div class="col-12 col-md-4">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="text-muted">Total Value</div>
-
-                    <!-- Replace with real model value later -->
-                    <div class="display-6">$—</div>
-
-                    <div class="small text-muted mt-1">Placeholder until live data</div>
+                    <div class="display-6">@Model.TotalValueUsd.ToString("C")</div>
+                    <div class="small text-muted mt-1">Estimated total value of your saved holdings.</div>
                 </div>
             </div>
         </div>
@@ -40,11 +37,8 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="text-muted">Holdings</div>
-
-                    <!-- Replace with real model value later -->
-                    <div class="display-6">—</div>
-
-                    <div class="small text-muted mt-1">Placeholder until live data</div>
+                    <div class="display-6">@Model.TotalHoldingsCount</div>
+                    <div class="small text-muted mt-1">Total saved holding entries in your portfolio.</div>
                 </div>
             </div>
         </div>
@@ -52,12 +46,9 @@
         <div class="col-12 col-md-4">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <div class="text-muted">Daily Change</div>
-
-                    <!-- Replace with real model value later -->
-                    <div class="display-6">—</div>
-
-                    <div class="small text-muted mt-1">Placeholder until live data</div>
+                    <div class="text-muted">Last Updated</div>
+                    <div class="display-6 fs-5">@Model.LastUpdated.ToLocalTime().ToString("g")</div>
+                    <div class="small text-muted mt-1">Dashboard refresh timestamp.</div>
                 </div>
             </div>
         </div>
@@ -65,64 +56,67 @@
 
     <!-- Main content row -->
     <div class="row g-3">
-        <!-- Left: Recent activity / holdings preview -->
+        <!-- Left: Holdings preview -->
         <div class="col-12 col-lg-8">
             <div class="card shadow-sm dashboard-dark-card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <h2 class="h5 mb-0">Holdings (Preview)</h2>
+                        <h2 class="h5 mb-0">Holdings Preview</h2>
 
                         <a asp-controller="Dashboard"
-                           asp-action="AddHoldings"
+                           asp-action="Holdings"
                            class="btn btn-sm btn-outline-primary">
-                            Add
+                            View All
                         </a>
                     </div>
 
                     <div class="text-muted mb-3">
-                        This is placeholder UI. We’ll wire it to real data later.
+                        Your most recently added holdings (up to 5).
                     </div>
 
-                    <div class="table-responsive">
+                    <!-- Scroll-safe container -->
+                    <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
                         <table class="table table-sm align-middle mb-0 dashboard-table">
                             <thead>
                                 <tr>
                                     <th>Metal</th>
                                     <th>Form</th>
+                                    <th>Description</th>
                                     <th class="text-end">Weight (oz)</th>
+                                    <th class="text-end">Quantity</th>
                                     <th class="text-end">Purity</th>
-                                    <th class="text-end">Aquired Price</th>
                                 </tr>
                             </thead>
+
                             <tbody>
-                                <!-- Placeholder rows -->
-                                <tr>
-                                    <td class="fw-semibold">Gold</td>
-                                    <td>1 oz American Eagle</td>
-                                    <td class="text-end">1.00</td>
-                                    <td class="text-end">.9999</td>
-                                    <td class="text-end">$2,050</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-semibold">Silver</td>
-                                    <td>10 oz Bar</td>
-                                    <td class="text-end">10.00</td>
-                                    <td class="text-end">.999</td>
-                                    <td class="text-end">$240</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-semibold">Platinum</td>
-                                    <td>1 oz Maple Leaf</td>
-                                    <td class="text-end">1.00</td>
-                                    <td class="text-end">.9995</td>
-                                    <td class="text-end">$980</td>
-                                </tr>
+                                @if (Model.RecentHoldings != null && Model.RecentHoldings.Any())
+                                {
+                                    foreach (var item in Model.RecentHoldings)
+                                    {
+                                        <tr>
+                                            <td class="fw-semibold">@item.MetalType</td>
+                                            <td>@item.FormType</td>
+                                            <td>@item.Description</td>
+                                            <td class="text-end">@item.WeightOz.ToString("0.####")</td>
+                                            <td class="text-end">@item.Quantity</td>
+                                            <td class="text-end">@item.Purity</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-4">
+                                            No holdings have been added yet.
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
 
                     <div class="mt-3 small text-muted">
-                        When we connect your DB, this table will render from your holdings list.
+                        This section automatically updates with your latest entries.
                     </div>
                 </div>
             </div>
@@ -139,13 +133,13 @@
                             + Add Holdings
                         </a>
 
-                        <!-- These can be wired later -->
-                        <button type="button" class="btn btn-outline-secondary" disabled>
-                            Import CSV (Coming Soon)
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary" disabled>
-                            View Reports (Coming Soon)
-                        </button>
+                        <a asp-controller="Dashboard" asp-action="Holdings" class="btn btn-outline-secondary">
+                            My Holdings
+                        </a>
+
+                        <a asp-controller="Dashboard" asp-action="Reports" class="btn btn-outline-secondary">
+                            View Reports →
+                        </a>
                     </div>
                 </div>
             </div>
@@ -154,9 +148,10 @@
                 <div class="card-body">
                     <h2 class="h5 mb-2">Notes</h2>
                     <ul class="mb-0 text-muted">
-                        <li>Keep “Add Holdings” as the primary CTA.</li>
-                        <li>Use the nav bar for movement between sections.</li>
-                        <li>Wire up the form later with a ViewModel + POST action.</li>
+                        <li>Add new holdings from the dashboard.</li>
+                        <li>Use My Holdings to edit or delete saved entries.</li>
+                        <li>The preview always shows your most recent entries.</li>
+                        <li>Use Reports to view portfolio summaries.</li>
                     </ul>
                 </div>
             </div>

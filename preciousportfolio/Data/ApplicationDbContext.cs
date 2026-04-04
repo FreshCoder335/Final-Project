@@ -11,6 +11,10 @@ namespace preciousportfolio.Data
         {
         }
 
-        public DbSet<Holding> Holdings { get; set; }    
+        // Stores active holdings (inventory)
+        public DbSet<Holding> Holdings { get; set; }
+
+        // Stores completed sale transactions (NEW)
+        public DbSet<SaleTransaction> SaleTransactions { get; set; }
     }
 }

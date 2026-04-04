@@ -1,0 +1,75 @@
+﻿@model preciousportfolio.Models.SellHoldingViewModel
+
+@{
+    Layout = "_LayoutDashboard";
+    ViewData["Title"] = "Sell Holding";
+}
+
+<div class="container-fluid">
+    <div class="mb-3">
+        <h1 class="h3 mb-0">Sell Holding</h1>
+        <div class="text-muted">Create a sale transaction from an existing holding.</div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="SellHolding" method="post">
+                <input type="hidden" asp-for="HoldingId" />
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Metal</label>
+                        <input class="form-control" value="@Model.MetalType" readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Description</label>
+                        <input class="form-control" value="@Model.Description" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Weight per Unit (oz)</label>
+                        <input class="form-control" value="@Model.WeightOz.ToString("0.####")" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Available Quantity</label>
+                        <input class="form-control" value="@Model.AvailableQuantity" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Acquired Price per Unit</label>
+                        <input class="form-control" value="@((Model.AcquiredPrice ?? 0m).ToString("C"))" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="DateSold" class="form-label"></label>
+                        <input asp-for="DateSold" class="form-control" type="date" />
+                        <span asp-validation-for="DateSold" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="QuantitySold" class="form-label">Quantity Sold</label>
+                        <input asp-for="QuantitySold" class="form-control" />
+                        <span asp-validation-for="QuantitySold" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Proceeds" class="form-label"></label>
+                        <input asp-for="Proceeds" class="form-control" />
+                        <span asp-validation-for="Proceeds" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Complete Sale</button>
+                    <a asp-action="Holdings" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

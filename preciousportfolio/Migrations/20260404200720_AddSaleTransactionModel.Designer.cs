@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using preciousportfolio.Data;
 
@@ -10,9 +11,11 @@ using preciousportfolio.Data;
 namespace preciousportfolio.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260404200720_AddSaleTransactionModel")]
+    partial class AddSaleTransactionModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.23");
@@ -290,9 +293,6 @@ namespace preciousportfolio.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("HoldingId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("MetalType")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -311,8 +311,6 @@ namespace preciousportfolio.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HoldingId");
 
                     b.HasIndex("UserId");
 
@@ -381,15 +379,9 @@ namespace preciousportfolio.Migrations
 
             modelBuilder.Entity("preciousportfolio.Models.SaleTransaction", b =>
                 {
-                    b.HasOne("preciousportfolio.Models.Holding", "Holding")
-                        .WithMany()
-                        .HasForeignKey("HoldingId");
-
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Holding");
 
                     b.Navigation("User");
                 });

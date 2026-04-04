@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using preciousportfolio.Data;
+using QuestPDF.Infrastructure;
 using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure QuestPDF license once at startup
+QuestPDF.Settings.License = LicenseType.Community;
 
 // Add services to the container.
 var dbPath = Path.Combine(builder.Environment.ContentRootPath, "preciousportfolio.db");
