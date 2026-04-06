@@ -7,7 +7,7 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
             <h1 class="h3 mb-0">Settings</h1>
-            <div class="text-muted">Application preferences (placeholder)</div>
+            <div class="text-muted">Application preferences</div>
         </div>
     </div>
 
@@ -27,9 +27,32 @@
 
             <hr class="my-4" />
 
-            <h2 class="h5 mb-2">General</h2>
-            <div class="text-muted">
-                Future settings: default storage location, preferred units, export formats, notification preferences.
+            <h2 class="h5 mb-3">General</h2>
+
+            <div class="mb-3">
+                <label for="defaultStorageUnit" class="form-label">Default Storage Unit</label>
+                <select id="defaultStorageUnit" class="form-select">
+                    <option selected disabled>Select a storage unit</option>
+                    <option>Safe</option>
+                    <option>Home Vault</option>
+                    <option>Bank Deposit Box</option>
+                    <option>Private Depository</option>
+                    <option>Other</option>
+                </select>
+                <div class="form-text">
+                    Choose the storage location type you use most often when adding holdings.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="preferredUnits" class="form-label">Preferred Units</label>
+                <select id="preferredUnits" class="form-select">
+                    <option selected>Troy Ounces (oz)</option>
+                    <option>Grams (g)</option>
+                </select>
+                <div class="form-text">
+                    Select the unit style you prefer for viewing and entering metal weights.
+                </div>
             </div>
         </div>
     </div>

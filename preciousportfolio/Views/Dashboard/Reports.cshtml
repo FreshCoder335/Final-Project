@@ -1,16 +1,6 @@
 ﻿@*
-    =====================================================================
-    All Reports View (Reports Hub)
-    ---------------------------------------------------------------------
-    Purpose:
-        Provides a single location to access all reporting modules.
-        Acts as a navigation hub with brief report descriptions and actions.
-
-    Notes:
-        - Currently shows placeholder actions (Export/Generate).
-        - Future: these cards can show real summary metrics pulled from DB.
-        - Future: add additional reports (Allocation, Performance, Insurance).
-    =====================================================================
+    All Reports View
+    Simple navigation hub for available report pages.
 *@
 
 @{
@@ -20,29 +10,18 @@
 
 <div class="container-fluid">
 
-    <!-- ============================================================= -->
-    <!-- Page Header                                                   -->
-    <!-- ============================================================= -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <div>
-            <h1 class="h3 mb-0">All Reports</h1>
-            <div class="text-muted">
-                Central hub for portfolio reporting and documentation.
-            </div>
+    <!-- Page header -->
+    <div class="mb-3">
+        <h1 class="h3 mb-0">All Reports</h1>
+        <div class="text-muted">
+            Central hub for portfolio reporting and documentation.
         </div>
-
-        <!-- Placeholder global export -->
-        <button class="btn btn-outline-primary" disabled>
-            Export Center (Coming Soon)
-        </button>
     </div>
 
-    <!-- ============================================================= -->
-    <!-- Report Cards                                                  -->
-    <!-- ============================================================= -->
+    <!-- Report cards -->
     <div class="row g-3">
 
-        <!-- Inventory Report Card -->
+        <!-- Inventory Report -->
         <div class="col-12 col-lg-6">
             <div class="card shadow-sm h-100">
                 <div class="card-body d-flex flex-column">
@@ -58,28 +37,24 @@
 
                     <hr class="my-3" />
 
-                    <!-- Placeholder "what you'll get" section -->
                     <ul class="mb-4 text-muted">
                         <li>Metal type, form, purity, weight, and quantity</li>
                         <li>Storage location and verification-ready format</li>
-                        <li>Designed for future export (PDF/CSV)</li>
+                        <li>CSV and PDF export available on the report page</li>
                     </ul>
 
-                    <div class="mt-auto d-flex gap-2">
+                    <div class="mt-auto">
                         <a class="btn btn-primary"
                            asp-controller="Dashboard"
                            asp-action="InventoryReport">
-                            Open
+                            Open Inventory Report
                         </a>
-                        <button class="btn btn-outline-primary" disabled>
-                            Export (Soon)
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Sales Report Card -->
+        <!-- Sales Report -->
         <div class="col-12 col-lg-6">
             <div class="card shadow-sm h-100">
                 <div class="card-body d-flex flex-column">
@@ -96,34 +71,31 @@
                     <hr class="my-3" />
 
                     <ul class="mb-4 text-muted">
-                        <li>Transaction list with proceeds and cost basis</li>
-                        <li>Filter-ready structure (metal type, date range)</li>
-                        <li>Future: charting and export support</li>
+                        <li>Transaction history with proceeds and cost basis</li>
+                        <li>Filter by metal type and date range</li>
+                        <li>CSV and PDF export available on the report page</li>
                     </ul>
 
-                    <div class="mt-auto d-flex gap-2">
+                    <div class="mt-auto">
                         <a class="btn btn-primary"
                            asp-controller="Dashboard"
                            asp-action="SalesReport">
-                            Open
+                            Open Sales Report
                         </a>
-                        <button class="btn btn-outline-primary" disabled>
-                            Export (Soon)
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Future Report: Spot Price Lookup (Stretch) -->
+        <!-- Spot Price Lookup -->
         <div class="col-12">
             <div class="card shadow-sm dashboard-dark-card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start">
                         <div>
-                            <h2 class="h5 mb-1">Spot Price Lookup (Stretch)</h2>
+                            <h2 class="h5 mb-1">Spot Price Lookup</h2>
                             <div class="text-muted">
-                                Display current spot prices for selected metals and support valuation reporting.
+                                One-click access to current metal pricing references.
                             </div>
                         </div>
                         <span class="badge text-bg-warning">Stretch</span>
@@ -132,17 +104,17 @@
                     <hr class="my-3" />
 
                     <div class="text-muted">
-                        Future enhancement: integrate an external pricing API so reports can display
-                        estimated value, portfolio allocation, and price-history summaries.
+                        Use the button below to quickly search current spot prices for
+                        gold, silver, platinum, and palladium.
                     </div>
 
-                    <div class="mt-3 d-flex gap-2">
-                        <button class="btn btn-outline-light" disabled>
-                            Configure API (Soon)
-                        </button>
-                        <button class="btn btn-outline-light" disabled>
-                            View Pricing Report (Soon)
-                        </button>
+                    <div class="mt-3">
+                        <a class="btn btn-outline-light"
+                           href="https://www.google.com/search?q=gold+silver+platinum+palladium+spot+price"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Look Up Spot Prices on Google →
+                        </a>
                     </div>
                 </div>
             </div>

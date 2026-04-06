@@ -124,6 +124,8 @@
 
         <!-- Right: quick actions / notes -->
         <div class="col-12 col-lg-4">
+
+            <!-- Quick Actions -->
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h2 class="h5 mb-2">Quick Actions</h2>
@@ -144,6 +146,35 @@
                 </div>
             </div>
 
+            <!-- 🔥 NEW: Live Spot Prices -->
+            <div class="card shadow-sm mt-3">
+                <div class="card-body">
+                    <h2 class="h5 mb-2">Live Spot Prices</h2>
+
+                    @if (Model.SpotPrices != null && Model.SpotPrices.IsAvailable)
+                    {
+                        <p><strong>Gold:</strong> @Model.SpotPrices.GoldUsdPerOz.ToString("C") / oz</p>
+                        <p><strong>Silver:</strong> @Model.SpotPrices.SilverUsdPerOz.ToString("C") / oz</p>
+                        <p><strong>Platinum:</strong> @Model.SpotPrices.PlatinumUsdPerOz.ToString("C") / oz</p>
+                        <p><strong>Palladium:</strong> @Model.SpotPrices.PalladiumUsdPerOz.ToString("C") / oz</p>
+
+                        <p class="text-muted small">
+                            Updated: @Model.SpotPrices.LastUpdatedUtc.ToLocalTime().ToString("g")
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Spot prices are currently unavailable.</p>
+
+                        @if (!string.IsNullOrWhiteSpace(Model.SpotPrices?.ErrorMessage))
+                        {
+                            <p class="text-danger small">@Model.SpotPrices.ErrorMessage</p>
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- Notes -->
             <div class="card shadow-sm mt-3">
                 <div class="card-body">
                     <h2 class="h5 mb-2">Notes</h2>
@@ -155,6 +186,7 @@
                     </ul>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

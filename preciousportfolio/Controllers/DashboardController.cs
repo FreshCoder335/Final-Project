@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using preciousportfolio.Data;
 using preciousportfolio.Models;
+using preciousportfolio.Services;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using System.Globalization;
@@ -16,10 +17,12 @@ namespace preciousportfolio.Controllers
     public class DashboardController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ISpotPriceService _spotPriceService;
 
-        public DashboardController(ApplicationDbContext context)
+        public DashboardController(ApplicationDbContext context, ISpotPriceService spotPriceService)
         {
             _context = context;
+            _spotPriceService = spotPriceService;
         }
 
         /// <summary>
@@ -80,6 +83,9 @@ namespace preciousportfolio.Controllers
                 Holdings = holdingsRows,
                 RecentHoldings = recentHoldings
             };
+
+            // Load live spot prices from Gold API
+            vm.SpotPrices = await _spotPriceService.GetSpotPricesAsync();
 
             return View(vm);
         }

@@ -33,6 +33,9 @@ namespace preciousportfolio.Models
         // Recent holdings for preview card (latest 3–5 items)
         public List<RecentHoldingItem> RecentHoldings { get; set; } = new();
 
+        // Live spot prices from Gold API
+        public SpotPricesViewModel SpotPrices { get; set; } = new();
+
         /// <summary>
         /// Sample data for initial UI testing (not used in production).
         /// </summary>

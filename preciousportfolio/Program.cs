@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using preciousportfolio.Data;
+using preciousportfolio.Services;
 using QuestPDF.Infrastructure;
 using System.IO;
 
@@ -21,6 +22,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpClient<ISpotPriceService, GoldApiSpotPriceService>()
+    .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+    {
+        UseProxy = false
+    });
 
 var app = builder.Build();
 
