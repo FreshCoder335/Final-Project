@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using preciousportfolio.Data;
@@ -18,11 +19,32 @@ namespace preciousportfolio.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ISpotPriceService _spotPriceService;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public DashboardController(ApplicationDbContext context, ISpotPriceService spotPriceService)
+        public DashboardController(
+            ApplicationDbContext context,
+            ISpotPriceService spotPriceService,
+            UserManager<IdentityUser> userManager)
         {
             _context = context;
             _spotPriceService = spotPriceService;
+            _userManager = userManager;
+        }
+
+        /// <summary>
+        /// Redirects users to the built-in 2FA setup page if two-factor authentication is not enabled.
+        /// </summary>
+        private async Task<IActionResult?> EnforceTwoFactorAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user != null && !await _userManager.GetTwoFactorEnabledAsync(user))
+            {
+                TempData["AccountMessage"] = "Please enable two-factor authentication before using dashboard features.";
+                return Redirect("/Identity/Account/Manage/TwoFactorAuthentication");
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -30,6 +52,12 @@ namespace preciousportfolio.Controllers
         /// </summary>
         public async Task<IActionResult> Index()
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             // Load this user's holdings, newest first
@@ -95,6 +123,12 @@ namespace preciousportfolio.Controllers
         /// </summary>
         public async Task<IActionResult> Holdings()
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var holdings = await _context.Holdings
@@ -110,8 +144,14 @@ namespace preciousportfolio.Controllers
         /// Displays the add holding form.
         /// </summary>
         [HttpGet]
-        public IActionResult AddHoldings()
+        public async Task<IActionResult> AddHoldings()
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             return View(new Holding());
         }
 
@@ -122,6 +162,12 @@ namespace preciousportfolio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddHoldings(Holding holding)
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             if (!User.Identity!.IsAuthenticated)
             {
                 return Challenge();
@@ -152,6 +198,12 @@ namespace preciousportfolio.Controllers
         [HttpGet]
         public async Task<IActionResult> EditHolding(int id)
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var holding = await _context.Holdings
@@ -172,6 +224,12 @@ namespace preciousportfolio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditHolding(int id, Holding holding)
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             if (id != holding.Id)
             {
                 return NotFound();
@@ -223,6 +281,12 @@ namespace preciousportfolio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteHolding(int id)
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var holding = await _context.Holdings
@@ -246,6 +310,12 @@ namespace preciousportfolio.Controllers
         [HttpGet]
         public async Task<IActionResult> SellHolding(int id)
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var holding = await _context.Holdings
@@ -278,6 +348,12 @@ namespace preciousportfolio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SellHolding(SellHoldingViewModel model)
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var holding = await _context.Holdings
@@ -350,6 +426,12 @@ namespace preciousportfolio.Controllers
         /// </summary>
         public async Task<IActionResult> InventoryReport()
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             var vm = await BuildInventoryReportViewModelAsync();
             return View(vm);
         }
@@ -360,6 +442,12 @@ namespace preciousportfolio.Controllers
         [HttpGet]
         public async Task<IActionResult> ExportInventoryCsv()
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             var vm = await BuildInventoryReportViewModelAsync();
 
             using var memoryStream = new MemoryStream();
@@ -407,6 +495,12 @@ namespace preciousportfolio.Controllers
         [HttpGet]
         public async Task<IActionResult> ExportInventoryPdf()
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             var vm = await BuildInventoryReportViewModelAsync();
 
             var pdfBytes = Document.Create(container =>
@@ -517,6 +611,12 @@ namespace preciousportfolio.Controllers
         [HttpGet]
         public async Task<IActionResult> SalesReport(string? selectedMetalType, DateTime? startDate, DateTime? endDate)
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             var vm = await BuildSalesReportViewModelAsync(selectedMetalType, startDate, endDate);
             return View(vm);
         }
@@ -527,6 +627,12 @@ namespace preciousportfolio.Controllers
         [HttpGet]
         public async Task<IActionResult> ExportSalesCsv(string? selectedMetalType, DateTime? startDate, DateTime? endDate)
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             var vm = await BuildSalesReportViewModelAsync(selectedMetalType, startDate, endDate);
 
             using var memoryStream = new MemoryStream();
@@ -574,6 +680,12 @@ namespace preciousportfolio.Controllers
         [HttpGet]
         public async Task<IActionResult> ExportSalesPdf(string? selectedMetalType, DateTime? startDate, DateTime? endDate)
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             var vm = await BuildSalesReportViewModelAsync(selectedMetalType, startDate, endDate);
 
             var pdfBytes = Document.Create(container =>
@@ -723,16 +835,28 @@ namespace preciousportfolio.Controllers
         /// <summary>
         /// Displays the reports landing page.
         /// </summary>
-        public IActionResult Reports()
+        public async Task<IActionResult> Reports()
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             return View();
         }
 
         /// <summary>
         /// Displays the account settings page.
         /// </summary>
-        public IActionResult Account()
+        public async Task<IActionResult> Account()
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             return View();
         }
 
@@ -741,8 +865,14 @@ namespace preciousportfolio.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Account(string displayName, string email, string storageDefault)
+        public async Task<IActionResult> Account(string displayName, string email, string storageDefault)
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             TempData["AccountMessage"] = "Account changes saved (placeholder).";
             return RedirectToAction("Account");
         }
@@ -750,8 +880,14 @@ namespace preciousportfolio.Controllers
         /// <summary>
         /// Displays the application settings page.
         /// </summary>
-        public IActionResult Settings()
+        public async Task<IActionResult> Settings()
         {
+            var twoFactorRedirect = await EnforceTwoFactorAsync();
+            if (twoFactorRedirect != null)
+            {
+                return twoFactorRedirect;
+            }
+
             return View();
         }
     }
